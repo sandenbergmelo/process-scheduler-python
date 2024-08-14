@@ -1,0 +1,35 @@
+[tool.poetry]
+name = "process-scheduler-python"
+version = "0.1.0"
+description = ""
+authors = []
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "3.12.*"
+
+
+[tool.poetry.group.dev.dependencies]
+taskipy = "^1.13.0"
+ruff = "^0.5.7"
+
+[tool.taskipy.tasks]
+dev = 'python process_scheduler_python/main.py'
+lint = 'ruff check . && ruff check . --diff'
+format = 'ruff check . --fix && ruff format .'
+
+[tool.ruff]
+line-length = 79
+extend-exclude = ['migrations']
+
+[tool.ruff.lint]
+preview = true
+select = ['I', 'F', 'E', 'W', 'PL', 'PT']
+
+[tool.ruff.format]
+preview = true
+quote-style = 'single'
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
