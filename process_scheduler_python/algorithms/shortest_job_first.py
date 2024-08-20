@@ -1,11 +1,15 @@
 from time import sleep
 
-from utils.process import Process
+from rich import print
+
+from process_scheduler_python.utils.process import Process
 
 
-class FCSF:
+class SJF:
     def __init__(self, processes: list[Process]) -> None:
-        self.processes = processes
+        self.processes = sorted(
+            processes, key=lambda process: process.execution_time
+        )
 
     def run(self):
         while len(self.processes) > 0:
