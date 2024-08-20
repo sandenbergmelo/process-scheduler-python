@@ -12,13 +12,13 @@ class FCSF:
     def run(self):
         total_wait_time = 0.0
 
-        for i in range(len(self.processes)):
-            self.processes[i].wait_time = total_wait_time
-            total_wait_time += self.processes[i].execution_time
+        for current_process in self.processes:
+            current_process.wait_time = total_wait_time
+            total_wait_time += current_process.execution_time
 
-            print(f'Executando: {self.processes[i]}')
+            print(f'Executando: {current_process}')
 
             try:
-                sleep(self.processes[i].execution_time)
+                sleep(current_process.execution_time)
             except Exception as e:
                 print(e)
