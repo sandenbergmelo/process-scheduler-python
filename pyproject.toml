@@ -9,6 +9,10 @@ readme = "README.md"
 python = "3.12.*"
 rich = "^13.7.1"
 factory-boy = "^3.3.1"
+customtkinter = "^5.2.2"
+pandas = "^2.2.2"
+openpyxl = "^3.1.5"
+tabulate = "^0.9.0"
 
 
 [tool.poetry.group.dev.dependencies]
@@ -16,7 +20,9 @@ taskipy = "^1.13.0"
 ruff = "^0.5.7"
 
 [tool.taskipy.tasks]
-dev = 'python process_scheduler_python/main.py'
+main = 'python process_scheduler_python/main.py'
+task = 'python process_scheduler_python/xlsx.py'
+gui = 'python process_scheduler_python/gui/main.py'
 lint = 'ruff check . && ruff check . --diff'
 format = 'ruff check . --fix && ruff format .'
 

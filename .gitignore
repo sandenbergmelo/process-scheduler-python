@@ -10,6 +10,9 @@ __pycache__/
 # Sqlite development database file
 *.db
 
+# xlsx
+*.xlsx
+
 # C extensions
 *.so
 
