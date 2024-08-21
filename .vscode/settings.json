@@ -4,5 +4,8 @@
         "fcsf",
         "FCSF",
         "pipx"
+    ],
+    "python.analysis.extraPaths": [
+        "./process_scheduler_python"
     ]
 }
