@@ -5,11 +5,13 @@
         "fcsf",
         "FCSF",
         "fieldbackground",
+        "notifypy",
         "openpyxl",
         "padx",
         "pady",
         "pipx",
         "printa",
+        "psutil",
         "simulaçoes",
         "taskipy"
     ],
