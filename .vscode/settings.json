@@ -8,7 +8,10 @@
         "openpyxl",
         "padx",
         "pady",
-        "pipx"
+        "pipx",
+        "printa",
+        "simulaçoes",
+        "taskipy"
     ],
     "python.analysis.extraPaths": [
         "./process_scheduler_python"
