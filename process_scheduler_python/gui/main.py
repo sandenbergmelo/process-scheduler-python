@@ -16,7 +16,7 @@ class SchedulerApp(ctk.CTk):
 
         # Update window title and size
         self.title('Process Scheduler Simulation')
-        self.geometry('1000x700')  # Increased window size
+        self.geometry('1000x700')
 
         # Frame for buttons
         self.button_frame = ctk.CTkFrame(self)
