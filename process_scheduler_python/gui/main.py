@@ -7,12 +7,15 @@ from process_scheduler_python.algorithms.first_come_first_served import FCFS
 from process_scheduler_python.algorithms.priority_scheduling import PS
 from process_scheduler_python.algorithms.shortest_job_first import SJF
 from process_scheduler_python.utils.factories import ProcessFactory
+from process_scheduler_python.utils.notify_message import notify_user
 from process_scheduler_python.utils.process import Process
 
 
 class SchedulerApp(ctk.CTk):
     def __init__(self):
         super().__init__()
+
+        self.processes = ProcessFactory.create_batch(20)
 
         self.title('Process Scheduler Simulation')
         self.geometry('1000x700')
@@ -36,6 +39,14 @@ class SchedulerApp(ctk.CTk):
         # PS Button
         self.ps_button = ctk.CTkButton(
             self.button_frame, text='Run PS', command=self.run_ps
+        )
+        self.ps_button.pack(padx=10, pady=5, side=tk.LEFT)
+
+        # PS Button
+        self.ps_button = ctk.CTkButton(
+            self.button_frame,
+            text='New processes',
+            command=self.update_processes,
         )
         self.ps_button.pack(padx=10, pady=5, side=tk.LEFT)
 
@@ -135,14 +146,13 @@ class SchedulerApp(ctk.CTk):
             processes
         )
         self.averages_label.configure(
-            text=f'Average Wait Time: {avg_wait_time:.6f} s | '
-            f'Average Turnaround Time: {avg_turnaround_time:.6f} s'
+            text=f'Média do tempo de espera: {avg_wait_time:.6f} s | '
+            f'Média do turnaround: {avg_turnaround_time:.6f} s'
         )
 
     def run_fcfs(self):
         self.clear_results()
-        processes = ProcessFactory.create_batch(20)
-        fcfs = FCFS(processes)
+        fcfs = FCFS(self.processes)
         self.add_text_to_result('Algorithm: FCFS')
         fcfs.run()
         self.add_processes_to_result(fcfs.processes)
@@ -150,8 +160,7 @@ class SchedulerApp(ctk.CTk):
 
     def run_sjf(self):
         self.clear_results()
-        processes = ProcessFactory.create_batch(20)
-        sjf = SJF(processes)
+        sjf = SJF(self.processes)
         self.add_text_to_result('Algorithm: SJF')
         sjf.run()
         self.add_processes_to_result(sjf.processes)
@@ -159,12 +168,17 @@ class SchedulerApp(ctk.CTk):
 
     def run_ps(self):
         self.clear_results()
-        processes = ProcessFactory.create_batch(20)
-        ps = PS(processes)
+        ps = PS(self.processes)
         self.add_text_to_result('Algorithm: PS')
         ps.run()
         self.add_processes_to_result(ps.processes)
         self.display_averages(ps.processes)
+
+    def update_processes(self):
+        self.processes = ProcessFactory.create_batch(20)
+        notify_user(
+            'Sucesso', 'A lista de processos foi atualizada com novos dados'
+        )
 
 
 if __name__ == '__main__':
