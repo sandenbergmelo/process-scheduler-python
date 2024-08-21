@@ -14,7 +14,6 @@ class SchedulerApp(ctk.CTk):
     def __init__(self):
         super().__init__()
 
-        # Update window title and size
         self.title('Process Scheduler Simulation')
         self.geometry('1000x700')
 
@@ -44,10 +43,10 @@ class SchedulerApp(ctk.CTk):
         self.result_frame = ctk.CTkFrame(self)
         self.result_frame.pack(pady=20, fill=tk.BOTH, expand=True)
 
-        # Label for algorithm name with increased font size
+        # Label for algorithm name
         self.algorithm_label = ctk.CTkLabel(
             self.result_frame, text='', font=('Arial', 20)
-        )  # Increased font size
+        )
         self.algorithm_label.pack(pady=10, anchor=tk.CENTER)
 
         # Treeview widget
@@ -77,7 +76,6 @@ class SchedulerApp(ctk.CTk):
         self.tree.column('Wait Time (s)', width=150, anchor=tk.CENTER)
         self.tree.column('Turnaround Time (s)', width=150, anchor=tk.CENTER)
 
-        # Customizing Treeview appearance for dark theme and font size
         style = ttk.Style(self)
         style.configure(
             'Treeview',
@@ -85,13 +83,15 @@ class SchedulerApp(ctk.CTk):
             foreground='white',
             fieldbackground='black',
             font=('Arial', 12),
-        )  # Increased font size for Treeview items
+        )
+
         style.configure(
             'Treeview.Heading',
             background='gray',
             foreground='white',
             font=('Arial', 14),
-        )  # Increased font size for column headers
+        )
+
         style.map(
             'Treeview',
             background=[('selected', 'gray')],
@@ -99,6 +99,12 @@ class SchedulerApp(ctk.CTk):
         )
 
         self.tree.pack(fill=tk.BOTH, expand=True)
+
+        # Label for averages
+        self.averages_label = ctk.CTkLabel(
+            self.result_frame, text='', font=('Arial', 16)
+        )
+        self.averages_label.pack(pady=10, anchor=tk.CENTER)
 
     def clear_results(self):
         self.tree.delete(*self.tree.get_children())
@@ -123,29 +129,42 @@ class SchedulerApp(ctk.CTk):
     def add_text_to_result(self, text: str):
         self.algorithm_label.configure(text=text)
 
+    def display_averages(self, processes: list[Process]):
+        avg_wait_time = sum(p.wait_time for p in processes) / len(processes)
+        avg_turnaround_time = sum(p.turn_around_time for p in processes) / len(
+            processes
+        )
+        self.averages_label.configure(
+            text=f'Average Wait Time: {avg_wait_time:.6f} s | '
+            f'Average Turnaround Time: {avg_turnaround_time:.6f} s'
+        )
+
     def run_fcfs(self):
         self.clear_results()
-        processes = ProcessFactory.create_batch(100)
+        processes = ProcessFactory.create_batch(20)
         fcfs = FCFS(processes)
         self.add_text_to_result('Algorithm: FCFS')
         fcfs.run()
         self.add_processes_to_result(fcfs.processes)
+        self.display_averages(fcfs.processes)
 
     def run_sjf(self):
         self.clear_results()
-        processes = ProcessFactory.create_batch(100)
+        processes = ProcessFactory.create_batch(20)
         sjf = SJF(processes)
         self.add_text_to_result('Algorithm: SJF')
         sjf.run()
         self.add_processes_to_result(sjf.processes)
+        self.display_averages(sjf.processes)
 
     def run_ps(self):
         self.clear_results()
-        processes = ProcessFactory.create_batch(100)
+        processes = ProcessFactory.create_batch(20)
         ps = PS(processes)
         self.add_text_to_result('Algorithm: PS')
         ps.run()
         self.add_processes_to_result(ps.processes)
+        self.display_averages(ps.processes)
 
 
 if __name__ == '__main__':
