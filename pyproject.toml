@@ -21,7 +21,7 @@ ruff = "^0.5.7"
 
 [tool.taskipy.tasks]
 main = 'python process_scheduler_python/main.py'
-task = 'python process_scheduler_python/xlsx.py'
+xlsx = 'python process_scheduler_python/xlsx.py'
 gui = 'python process_scheduler_python/gui/main.py'
 lint = 'ruff check . && ruff check . --diff'
 format = 'ruff check . --fix && ruff format .'
