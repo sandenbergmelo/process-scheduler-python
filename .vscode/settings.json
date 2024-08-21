@@ -5,6 +5,7 @@
         "fcsf",
         "FCSF",
         "fieldbackground",
+        "openpyxl",
         "padx",
         "pady",
         "pipx"
