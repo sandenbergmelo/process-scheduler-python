@@ -1,8 +1,12 @@
 {
     "cSpell.words": [
+        "customtkinter",
         "fcfs",
         "fcsf",
         "FCSF",
+        "fieldbackground",
+        "padx",
+        "pady",
         "pipx"
     ],
     "python.analysis.extraPaths": [
