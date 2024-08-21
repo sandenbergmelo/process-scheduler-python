@@ -8,16 +8,16 @@ def main():
     processes = ProcessFactory.create_batch(100)
 
     print('FCFS simulation exemple')
-    fcsf = FCFS(processes)
-    fcsf.run()
+    fcfs = FCFS(processes)
+    fcfs.run()
 
     print('\nSJF simulation exemple')
     sjf = SJF(processes)
     sjf.run()
 
     print('\nPS simulation exemple')
-    sjf = PS(processes)
-    sjf.run()
+    ps = PS(processes)
+    ps.run()
 
 
 if __name__ == '__main__':
