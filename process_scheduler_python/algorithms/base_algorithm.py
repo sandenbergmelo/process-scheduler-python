@@ -10,7 +10,7 @@ class BaseAlgorithm(ABC):
     def __init__(self, processes: list[Process]) -> None:
         self.processes = processes
 
-    def execute_process(self, process: Process):  # noqa: PLR6301
+    def _execute_process(self, process: Process):  # noqa: PLR6301
         print(f'Executando {process}')
         sleep(process.execution_time)
 
@@ -25,4 +25,4 @@ class BaseAlgorithm(ABC):
                 current_process.wait_time + current_process.execution_time, 6
             )
 
-            self.execute_process(current_process)
+            self._execute_process(current_process)
