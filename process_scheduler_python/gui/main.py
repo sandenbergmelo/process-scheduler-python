@@ -20,9 +20,23 @@ class SchedulerApp(ctk.CTk):
         self.title('Process Scheduler Simulation')
         self.geometry('1000x700')
 
-        # Frame for buttons
+        # Frame for buttons and input
         self.button_frame = ctk.CTkFrame(self)
         self.button_frame.pack(pady=20)
+
+        # Entry for number of processes
+        self.num_processes_entry = ctk.CTkEntry(
+            self.button_frame, placeholder_text='Number of processes'
+        )
+        self.num_processes_entry.pack(padx=10, pady=5, side=tk.LEFT)
+
+        # Update processes Button
+        self.update_button = ctk.CTkButton(
+            self.button_frame,
+            text='Update processes',
+            command=self.update_processes,
+        )
+        self.update_button.pack(padx=10, pady=5, side=tk.LEFT)
 
         # FCFS Button
         self.fcfs_button = ctk.CTkButton(
@@ -39,14 +53,6 @@ class SchedulerApp(ctk.CTk):
         # PS Button
         self.ps_button = ctk.CTkButton(
             self.button_frame, text='Run PS', command=self.run_ps
-        )
-        self.ps_button.pack(padx=10, pady=5, side=tk.LEFT)
-
-        # PS Button
-        self.ps_button = ctk.CTkButton(
-            self.button_frame,
-            text='New processes',
-            command=self.update_processes,
         )
         self.ps_button.pack(padx=10, pady=5, side=tk.LEFT)
 
@@ -175,10 +181,20 @@ class SchedulerApp(ctk.CTk):
         self.display_averages(ps.processes)
 
     def update_processes(self):
-        self.processes = ProcessFactory.create_batch(20)
-        notify_user(
-            'Sucesso', 'A lista de processos foi atualizada com novos dados'
-        )
+        try:
+            num_processes = int(self.num_processes_entry.get())
+            if num_processes <= 0:
+                raise ValueError
+
+            self.processes = ProcessFactory.create_batch(num_processes)
+            notify_user(
+                'Sucesso',
+                f'A lista de processos foi atualizada com {num_processes} novos processos',  # noqa: E501
+            )
+        except ValueError:
+            notify_user(
+                'Erro', 'Por favor, insira um número válido de processos.'
+            )
 
 
 if __name__ == '__main__':
